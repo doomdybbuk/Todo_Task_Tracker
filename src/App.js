@@ -31,6 +31,14 @@ function App() {
                 });
         }
     };
+    const editTodoItem = (itemId, itemContent) =>{
+        axios.post(`${configData.API_URI}/edit_todo_item`, {item_id: itemId, new_content: itemContent})
+            .then((response) => {
+                if (response.status === 200) {
+                    setTodoList([...todoList, {"id": response.data.item_id, "content": itemContent}]);
+                }
+            });
+    }
 
     // delete a todo item from the list and from the database
     const deleteTodoItem = (itemId) => {
@@ -51,7 +59,7 @@ function App() {
             <h1>React Todo App</h1>
 
             <InputTodoItem onAddTodoItem={addTodoItem} />
-            <DisplayTodoList todoList={todoList} onDeleteTodoItem={deleteTodoItem} />
+            <DisplayTodoList todoList={todoList} onDeleteTodoItem={deleteTodoItem} onEditTodoItem={editTodoItem} />
         </div>
     );
 }

@@ -3,12 +3,12 @@ from flask_cors import CORS
 
 from pymongo import MongoClient
 from bson.objectid import ObjectId
-
+from auth import app as auth_app
 from config import *
 
 app = Flask(__name__)
 CORS(app)
-
+app.register_blueprint(auth_app)
 client = MongoClient(MONGODB_CONNECTION_STRING)
 database = client[MONGODB_DATABASE_NAME]
 items_collection = database[MONGODB_TODO_ITEMS_COLLECTION]
@@ -19,7 +19,7 @@ def get_todo_items():
     items_list = [{"id": str(item["_id"]), "content": item["content"]} for item in items_list]
 
     return jsonify({
-        "todoItems": items_list
+        "todoItems": items_list 
     })
 
 @app.post("/add_todo_item")
@@ -31,13 +31,19 @@ def add_todo_item():
         "item_id": str(_id.inserted_id)
     })
 
-# @app.post("/update_todo_items")
-# def update_todo_items():
-#     items = request.json["items"]
-#     for item in items:
-#         items_collection.update_one({"_id": ObjectId(item["id"])}, {"$set": {"content": item["content"]}})
-#     return {}
+@app.post("/edit_todo_item")
+def edit_todo_item():
+    item_id = request.json["item_id"]
+    new_content = request.json["new_content"]
 
+    result = items_collection.update_one(
+        {"_id": ObjectId(item_id)},
+        {"$set": {"content": new_content}},
+    )   
+    if result.modified_count > 0:
+        return jsonify({"message": "Item updated successfully"}), 200
+    else:
+        return jsonify({"message": "Item not found or content unchanged"}), 404
 
 @app.post("/delete_todo_item")
 def delete_todo_item():
