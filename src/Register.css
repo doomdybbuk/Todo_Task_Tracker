@@ -1,0 +1,75 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    padding: 50px;
+    color: #f7f7f7;
+    min-height: 100vh;
+    background: #252525;
+    text-rendering: optimizeSpeed;
+    font-family: "Roboto", sans-serif;
+}
+
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.register-form {
+    padding: 2rem;
+    background: #333;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 5px;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.register-title {
+    font-weight: 300;
+    color: #44c0b6;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.input-group {
+    margin-bottom: 1rem;
+}
+
+.input-field {
+    width: 100%;
+    padding: 0.8em;
+    font-size: 1em;
+    color: #f7f7f7;
+    background: #494847;
+    border: 1px solid #828691;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: #44c0b6;
+}
+
+.register-button {
+    width: 100%;
+    padding: 0.8em;
+    font-size: 1em;
+    color: #f7f7f7;
+    background: #44c0b6;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 1rem;
+    transition: background 0.3s ease;
+}
+
+.register-button:hover {
+    background: #36a099;
+}

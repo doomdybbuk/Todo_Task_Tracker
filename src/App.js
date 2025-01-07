@@ -1,66 +1,23 @@
-import {useState, useEffect} from "react"
-import axios from "axios"
-
-import InputTodoItem from "./InputTodoItem"
-import DisplayTodoList from "./DisplayTodoList"
-
-import configData from "./config.json"
-import "./App.css";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import Login from "./Login";
+import Register from "./Register";
+import DisplayTodoList from "./DisplayTodoList";
 
 function App() {
-    const [todoList, setTodoList] = useState([]);
-
-    // Get all todo items when the web page is opened
-    useEffect(() => {
-        axios.get(`${configData.API_URI}/get_todo_items`)
-        .then((response) => {
-            if (response.status === 200) {
-                setTodoList(response.data.todoItems);
-            }
-        });
-    }, []);
-
-    // Add a todo item to the list and to the database
-    const addTodoItem = (itemContent) => {
-        if (itemContent !== "") {
-            axios.post(`${configData.API_URI}/add_todo_item`, {item_content: itemContent})
-                .then((response) => {
-                    if (response.status === 200) {
-                        setTodoList([...todoList, {"id": response.data.item_id, "content": itemContent}]);
-                    }
-                });
-        }
-    };
-    const editTodoItem = (itemId, itemContent) =>{
-        axios.post(`${configData.API_URI}/edit_todo_item`, {item_id: itemId, new_content: itemContent})
-            .then((response) => {
-                if (response.status === 200) {
-                    setTodoList([...todoList, {"id": response.data.item_id, "content": itemContent}]);
-                }
-            });
-    }
-
-    // delete a todo item from the list and from the database
-    const deleteTodoItem = (itemId) => {
-        axios.post(`${configData.API_URI}/delete_todo_item`, {item_id: itemId})
-            .then((response) => {
-                if (response.status === 200) {
-                    const newTodoList = todoList.filter((item) => {
-                        return item.id !== itemId
-                    });
-
-                    setTodoList(newTodoList);
-                }
-            });
-    };
+    const isAuthenticated = () => !!localStorage.getItem("token");
 
     return (
-        <div className="App">
-            <h1>React Todo App</h1>
-
-            <InputTodoItem onAddTodoItem={addTodoItem} />
-            <DisplayTodoList todoList={todoList} onDeleteTodoItem={deleteTodoItem} onEditTodoItem={editTodoItem} />
-        </div>
+        <Router>
+            <Routes>
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route
+                    path="/todo"
+                    element={isAuthenticated() ? <DisplayTodoList /> : <Navigate to="/login" />}
+                />
+                <Route path="*" element={<Navigate to="/login" />} />
+            </Routes>
+        </Router>
     );
 }
 

@@ -32,12 +32,24 @@ def login():
     username = data['username']
     password = data['password']
 
-    user = users_collection.find_one({'username':username})
-    if not user or not bcrypt.checkpw(password.encode('utf-8'),user['password']):
-        return jsonify ({'message': 'Invalid Credentials'}), 201
+    # Find user in database
+    user = users_collection.find_one({'username': username})
     
+    print("Username:", username)
+    print("Password entered:", password)
+    print("User from DB:", user)
+
+    # Check if user exists and if password matches
+    if not user:
+        return jsonify({'message': 'Invalid Credentials - User not found'}), 401
+    if not bcrypt.checkpw(password.encode('utf-8'), user['password'].encode('utf-8')):
+        print("Password mismatch")
+        return jsonify({'message': 'Invalid Credentials - Password mismatch'}), 401
+
+    # Generate JWT token
     token = create_access_token(identity=username)
-    return jsonify({'token':token}), 200
+    print("Generated Token:", token)
+    return jsonify({'token': token}), 200
 
 @app.route('/protected', methods=['GET'])
 @jwt_required()
