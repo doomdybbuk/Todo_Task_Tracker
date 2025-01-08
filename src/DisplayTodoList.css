@@ -1,0 +1,129 @@
+/* General Container */
+.todo-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+}
+
+/* Greeting */
+.todo-greeting {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Todo List */
+.todo-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.todo-item-wrapper {
+    margin: 10px 0;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.todo-item-wrapper:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.todo-content {
+    font-size: 18px;
+    font-weight: 500;
+    color: #555;
+    flex-grow: 1;
+    text-align: left;
+}
+
+/* Todo Actions */
+.todo-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    padding: 8px 12px;
+    font-size: 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+.btn-edit {
+    background: #ffcd38;
+    color: #fff;
+}
+
+.btn-edit:hover {
+    background: #e6b500;
+}
+
+.btn-delete {
+    background: #f56565;
+    color: #fff;
+}
+
+.btn-delete:hover {
+    background: #e55353;
+}
+
+.btn-save {
+    background: #38a169;
+    color: #fff;
+}
+
+.btn-save:hover {
+    background: #2f855a;
+}
+
+.btn-cancel {
+    background: #718096;
+    color: #fff;
+}
+
+.btn-cancel:hover {
+    background: #4a5568;
+}
+
+/* Input for Editing */
+.todo-input-edit {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+/* Empty Wrapper */
+.empty-wrapper {
+    padding: 20px;
+    background: #e2e8f0;
+    border-radius: 8px;
+    color: #718096;
+}
+
+.empty-message {
+    font-size: 18px;
+    font-weight: 500;
+}

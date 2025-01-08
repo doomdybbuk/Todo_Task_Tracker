@@ -1,5 +1,5 @@
-// 
 import { useState } from "react";
+import "./InputTodoItem.css";
 
 function InputTodoItem({ onAddTodoItem }) {
     const [itemContent, setItemContent] = useState("");
@@ -7,7 +7,7 @@ function InputTodoItem({ onAddTodoItem }) {
 
     const handleAddClick = () => {
         if (itemContent.trim() === "") {
-            setIsModalVisible(true); // Show modal when input is empty
+            setIsModalVisible(true);
         } else {
             onAddTodoItem(itemContent);
             setItemContent("");
@@ -15,32 +15,30 @@ function InputTodoItem({ onAddTodoItem }) {
     };
 
     const closeModal = () => {
-        setIsModalVisible(false); // Hide modal
+        setIsModalVisible(false);
     };
 
     return (
-        <div className="input-wrapper">
-            <input 
+        <div className="input-container">
+            <input
                 type="text"
                 name="todoItem"
-                placeholder="Create a new todo item"
+                className="todo-input"
+                placeholder="What's on your mind?"
                 value={itemContent}
-                onChange={(e) => {
-                    setItemContent(e.target.value);
-                }}
+                onChange={(e) => setItemContent(e.target.value)}
             />
-            <button 
-                className="add-button" 
-                onClick={handleAddClick}
-            >
-                Add
+            <button className="btn btn-add" onClick={handleAddClick}>
+                Add Task
             </button>
 
             {isModalVisible && (
                 <div className="modal">
                     <div className="modal-content">
-                        <p>Empty task cannot be created</p>
-                        <button className="close-button" onClick={closeModal}>Close</button>
+                        <p className="modal-message">Empty task cannot be created</p>
+                        <button className="btn btn-close" onClick={closeModal}>
+                            Close
+                        </button>
                     </div>
                 </div>
             )}

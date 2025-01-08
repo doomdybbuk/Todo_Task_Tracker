@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import './Login.css';  // Assuming the CSS will be in a separate file
+import './Login.css';  // Optional styling
 
 function Login() {
     const [username, setUsername] = useState("");
@@ -10,8 +10,15 @@ function Login() {
 
     const handleLogin = async () => {
         try {
-            const response = await axios.post("http://localhost:5000/login", { username, password });
+            // POST to /auth/login because of the blueprint prefix
+            const response = await axios.post("http://localhost:5000/auth/login", {
+                username,
+                password
+            });
+            // Store token & username in localStorage
             localStorage.setItem("token", response.data.token);
+            localStorage.setItem("username", response.data.username);
+            // Redirect to /todo after successful login
             navigate("/todo");
         } catch (error) {
             alert("Invalid Credentials");
@@ -40,7 +47,9 @@ function Login() {
                         className="input-field"
                     />
                 </div>
-                <button className="login-button" onClick={handleLogin}>Login</button>
+                <button className="login-button" onClick={handleLogin}>
+                    Login
+                </button>
             </div>
         </div>
     );
