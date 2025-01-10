@@ -1,0 +1,7 @@
+Task Prioritization: Allow users to assign priority levels (e.g., High, Medium, Low) to tasks.
+Task Categorization: Enable users to categorize tasks under labels (e.g., Work, Personal, Study).
+Recurring Tasks: Add support for recurring tasks (e.g., daily, weekly, monthly).
+
+Due Date and Time: Allow users to set deadlines for tasks.
+Reminders: Send notifications or emails for upcoming or overdue tasks.
+
